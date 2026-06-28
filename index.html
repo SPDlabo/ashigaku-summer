@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第71回 全国高校軟式野球選手権大会 兵庫大会 | 芦学BC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --crimson: #A8001E;
+      --crimson-bright: #DC143C;
+      --crimson-dim: #6B0013;
+      --navy: #0A0E1A;
+      --navy-mid: #111827;
+      --navy-light: #1E2940;
+      --white: #F5F5F0;
+      --gray: #9CA3AF;
+      --gold: #C9A84C;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Noto Sans JP', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 24px 80px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168,0,30,0.25) 0%, transparent 70%),
+        var(--navy);
+      overflow: hidden;
+    }
+
+    /* Field lines decoration */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 59px,
+          rgba(255,255,255,0.03) 60px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 59px,
+          rgba(255,255,255,0.03) 60px
+        );
+      pointer-events: none;
+    }
+
+    /* Diamond accent */
+    .diamond {
+      width: 64px;
+      height: 64px;
+      border: 2px solid var(--crimson);
+      transform: rotate(45deg);
+      margin: 0 auto 32px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .diamond::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(168,0,30,0.4);
+    }
+
+    .eyebrow {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.35em;
+      color: var(--crimson-bright);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.6rem, 10vw, 5rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .hero-title span {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1rem, 4vw, 1.6rem);
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      color: var(--gray);
+      margin-top: 10px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: var(--crimson);
+      margin: 32px auto;
+    }
+
+    /* ── INFO CARDS ── */
+    .info-section {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--navy-light);
+      border: 1px solid rgba(168,0,30,0.3);
+      border-radius: 4px;
+      padding: 20px 24px;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--crimson);
+    }
+
+    .card-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--crimson-bright);
+      margin-bottom: 8px;
+    }
+
+    .card-value {
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: var(--white);
+    }
+
+    .card-sub {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ── NOTICE ── */
+    .notice {
+      margin-top: 32px;
+      font-size: 0.82rem;
+      color: var(--gray);
+      letter-spacing: 0.03em;
+      line-height: 1.7;
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    /* ── SCHEDULE SECTION (hidden initially, shown when content added) ── */
+    .schedule-section {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(168,0,30,0.2);
+      padding: 56px 24px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 6vw, 2.4rem);
+      letter-spacing: 0.15em;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 0.8rem;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+      margin-bottom: 36px;
+    }
+
+    /* Placeholder for tournament bracket image */
+    .bracket-placeholder {
+      max-width: 560px;
+      margin: 0 auto;
+      border: 1px dashed rgba(168,0,30,0.4);
+      border-radius: 4px;
+      padding: 48px 24px;
+      color: var(--gray);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* When image is added, replace placeholder with this class */
+    .bracket-img {
+      max-width: 560px;
+      width: 100%;
+      margin: 0 auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 24px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(156,163,175,0.5);
+      letter-spacing: 0.05em;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-title, .info-section, .diamond {
+        animation: fadeUp 0.7s ease both;
+      }
+      .info-section { animation-delay: 0.15s; }
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="diamond"></div>
+    <p class="eyebrow">第71回 全国高校軟式野球選手権大会</p>
+    <h1 class="hero-title">
+      兵庫大会
+      <span>HYOGO PREFECTURAL TOURNAMENT 2026</span>
+    </h1>
+    <div class="divider"></div>
+
+    <div class="info-section">
+      <div class="card">
+        <p class="card-label">OPENING DATE · 開幕日</p>
+        <p class="card-value">2026年 7月28日（火）</p>
+      </div>
+      <div class="card">
+        <p class="card-label">VENUE · 会場</p>
+        <p class="card-value">神姫バスキッピースタジアム</p>
+        <p class="card-sub">城山公園野球場</p>
+      </div>
+    </div>
+
+    <p class="notice">詳細は決まり次第、このページを更新します。<br>7月8日（水）の抽選後にトーナメント表・試合日程を掲載予定です。</p>
+  </section>
+
+  <!-- SCHEDULE SECTION（7/8抽選後に内容を追記） -->
+  <section class="schedule-section">
+    <p class="section-title">TOURNAMENT</p>
+    <p class="section-sub">トーナメント表 · 試合日程</p>
+
+    <!-- 7/8以降：下の div を <img class="bracket-img" src="bracket.png" alt="トーナメント表"> に差し替え -->
+    <div class="bracket-placeholder">
+      7月8日（水）抽選後に掲載します
+    </div>
+  </section>
+
+  <footer>
+    © 2026 芦学BC 保護者会 · 芦学BC連絡板
+  </footer>
+
+</body>
+</html>
